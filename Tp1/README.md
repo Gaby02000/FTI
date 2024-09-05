@@ -1,6 +1,6 @@
 # Proyecto de Cifrado y Descifrado de Texto
 
-Este es un proyecto simple desarrollado por Agustín Bowen, Scott Ellies y Gabriel José Federico Miguel Guimenez, como parte de un ejercicio universitario. El programa permite cifrar y descifrar texto basado en reglas predefinidas.
+Este es un proyecto simple desarrollado por Agustín Bowen, Scott Ellis y Gabriel José Federico Miguel Guimenez, como parte de un ejercicio universitario. El programa permite cifrar y descifrar texto basado en reglas predefinidas.
 
 ## Descripción
 
