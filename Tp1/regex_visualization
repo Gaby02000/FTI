@@ -1,0 +1,8 @@
+// Expresión Regular
+digraph {
+	A [label=Inicio]
+	B [label="Patrón: 1|2|3"]
+	C [label=Fin]
+	A -> B [label=Aplicar]
+	B -> C [label=Terminar]
+}
