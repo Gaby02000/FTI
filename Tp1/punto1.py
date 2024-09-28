@@ -19,17 +19,24 @@ reemplazos = {
     'valor': '15',
     'cadena': '16',
     'entrada': '17',
-    'salida': '18'
+    'salida': '18',
+    
 }
 
 def cifrar(texto, reglas):
-    patron = '|'.join(re.escape(clave) for clave in reglas.keys())
-    return re.sub(patron, lambda match: reglas[match.group(0)], texto)
+    claves = reglas.keys() 
+    patron = '|'.join(claves) 
+    reemplazo = lambda match: reglas[match.group(0)] # Crear una func de reemplazo
+    texto_cifrado = re.sub(patron, reemplazo, texto) # Aplicar el reemplazo
+    return texto_cifrado 
 
 def descifrar(texto, reglas):
-    patron = '|'.join(re.escape(valor) for valor in reglas.values())
-    reglas_invertidas = {v: k for k, v in reglas.items()}
-    return re.sub(patron, lambda match: reglas_invertidas[match.group(0)], texto)
+    valores = reglas.values() 
+    patron = '|'.join(valores) 
+    reglas_invertidas = {v: k for k, v in reglas.items()} # Invertir el diccionario
+    reemplazo = lambda match: reglas_invertidas[match.group(0)] # Crear el reemplazo
+    texto_descifrado = re.sub(patron, reemplazo, texto) # Aplicar el reemplazo
+    return texto_descifrado 
 
 def main():
     while True:
