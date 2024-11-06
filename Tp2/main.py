@@ -13,6 +13,7 @@ reglas={
     'B': '+CF--DF[---AF--BF]+',
     'C': '-AF++BF[+++CF++DF]-',
     'D': '--CF++++AF[+DF++++BF]--BF',
+    'F': None
 }
 
 def aplicarReglas(cadena, iteraciones):
@@ -21,7 +22,10 @@ def aplicarReglas(cadena, iteraciones):
         nuevaCadena = ''
         for x in cadena:
             if x in reglas:
-                nuevaCadena += reglas[x]
+                if x == 'F':
+                    pass
+                else: 
+                    nuevaCadena += reglas[x]
             else:
                 nuevaCadena += x
         cadena = nuevaCadena
