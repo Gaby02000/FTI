@@ -80,28 +80,19 @@ def limpiarConsola():
 
 def configPantalla():
     screen = turtle.Screen()
-    screen.setup(width=1.0, height=1.0)  # Pantalla completa
+    screen.setup(width=1.0, height=1.0)  
     screen.title("TP2 Grupo 6")
     screen.bgcolor("black")
-    screen.cv._rootwindow.attributes("-fullscreen", True)  # Modo pantalla completa
+    screen.cv._rootwindow.attributes("-fullscreen", True) 
     return screen
 
-def centroPantalla(screen):
-    ancho = screen.window_width()
-    alto = screen.window_height()
-    x = ancho / 2
-    y = alto / 2
-    return x, y 
 
-def centrarDibujo(screen):
-    x, y = centroPantalla(screen)
-    turtle.penup()
-    turtle.goto(0, 0)
-    turtle.pendown()
+    
 def configTurtle(velocidad):
     turtle.speed(velocidad)  
     turtle.pencolor('white')
     turtle.pensize(1)
+    turtle.goto(0, 0)
 
 def menu():
     global longitudLinea
@@ -137,7 +128,7 @@ if __name__ == '__main__':
     colores, iteraciones, velocidad = menu()
     screen = configPantalla()
     configTurtle(velocidad)
-    centrarDibujo(screen) 
+    #centrarDibujo(screen) 
     print('Dibujando...')
     try:
         cadena = aplicarReglas(cadenaInicial, iteraciones)
