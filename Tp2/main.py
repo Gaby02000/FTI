@@ -2,6 +2,7 @@ import turtle
 import random
 import platform
 from os import system
+from InquirerPy import prompt
 
 anguloRotacion = 36  
 longitudLinea = 0
@@ -28,6 +29,103 @@ reglas={
     'F': None
 }
 
+def obtener_cadena():
+    respuesta = [
+        {
+            "type": "list",
+            "message": "¿Desea ingresar otra cadena?",
+            "choices": ["Si", "No"],
+            "name": "opcion"
+        },
+    ]
+    respuesta = prompt(respuesta)
+    
+    if respuesta['opcion'] == "No":
+        cadena = "[B]++[B]++[B]++[B]++[B]"
+    else:
+        pregunta_cadena = [
+            {
+                "type": "input",
+                "name": "cadena",
+                "message": "Ingrese la cadena:",
+                "default": "[B]++[B]++[B]++[B]++[B]",
+            },
+        ]
+        respuesta_cadena = prompt(pregunta_cadena)
+        cadena = respuesta_cadena['cadena']
+    
+    return cadena
+
+def obtener_iteraciones():
+    respuesta = [
+        {
+            "type": "input",
+            "name": "iteraciones",
+            "message": "Ingrese las iteraciones",
+        },
+    ]
+    respuesta = prompt(respuesta)
+    return respuesta['iteraciones']
+
+def obtener_velocidad():
+    respuesta = [
+        {
+            "type": "input",
+            "name": "velocidad",
+            "message": "Ingrese la velocidad",
+        },
+    ]
+    respuesta = prompt(respuesta)
+    return respuesta['velocidad']
+
+def obtener_colores():
+    lista_colores = [
+        "white", "black", "red", "green", "blue", "cyan", "yellow", "magenta",
+        "maroon", "lime", "navy", "teal", "purple", "olive", "gray", "silver",
+        "orange", "brown", "pink", "gold", "violet", "indigo", "turquoise"
+    ]
+    
+    pregunta_colores = [
+        {
+            "type": "list",
+            "name": "color1",
+            "message": "Seleccione el primer color:",
+            "choices": lista_colores
+        },
+        {
+            "type": "list",
+            "name": "color2",
+            "message": "Seleccione el segundo color:",
+            "choices": lista_colores
+        }
+    ]
+    
+    respuestas = prompt(pregunta_colores)
+    return respuestas['color1'], respuestas['color2']
+def menu():
+    global longitudLinea
+    limpiarConsola()
+    colores = obtener_colores()
+    limpiarConsola()
+    while True:
+        velocidad = int(obtener_velocidad())
+        if velocidad >= 0 and velocidad <= 10:
+            break
+        else:
+            limpiarConsola()
+            print('Valor invalido.')
+    limpiarConsola()
+    while True:
+        iteraciones = int(obtener_iteraciones())
+        if iteraciones in tamanioLinea:
+            longitudLinea = tamanioLinea[iteraciones]
+            break
+        else:
+            limpiarConsola()
+            print('Valor invalido.')
+    limpiarConsola()
+    return colores, iteraciones, velocidad
+
 def aplicarReglas(cadena, iteraciones):
     i = 0
     while i<iteraciones:
@@ -46,7 +144,6 @@ def aplicarReglas(cadena, iteraciones):
     return cadena
 
 def dibujar(cadena,colores):
-    colores = colores.split(", ")
     pila = []
     for char in cadena:
         if char == 'F':
@@ -82,7 +179,7 @@ def configPantalla():
     screen = turtle.Screen()
     screen.setup(width=1.0, height=1.0)  
     screen.title("TP2 Grupo 6")
-    screen.bgcolor("black")
+    screen.bgcolor("#09090b")
     screen.cv._rootwindow.attributes("-fullscreen", True) 
     return screen
 
@@ -94,37 +191,9 @@ def configTurtle(velocidad):
     turtle.pensize(1)
     turtle.goto(0, 0)
 
-def menu():
-    global longitudLinea
-    colores = input('Elegi dos colores separados por comas: ')
-    limpiarConsola()
-    while True:
-        velocidad = int(input('Elegi la velocidad de dibujo: '))
-        if velocidad >= 0 and velocidad <= 10:
-            break
-        else:
-            limpiarConsola()
-            print('Valor invalido.')
-    limpiarConsola()
-    while True:
-        iteraciones = int(input('Elegi la cantidad de iteraciones: '))
-        if iteraciones in tamanioLinea:
-            longitudLinea = tamanioLinea[iteraciones]
-            break
-        else:
-            limpiarConsola()
-            print('Valor invalido.')
-    limpiarConsola()
-    return colores, iteraciones, velocidad
-
 if __name__ == '__main__':
-    
-    x = input('desea agregar otra cadena inicial? (s/n): ')
-    if x == 's':
-        cadenaInicial = input('ingrese cadena inicial: ')
-    else:
-        cadenaInicial = "[B]++[B]++[B]++[B]++[B]"
     limpiarConsola()
+    cadenaInicial = obtener_cadena()
     colores, iteraciones, velocidad = menu()
     screen = configPantalla()
     configTurtle(velocidad)
