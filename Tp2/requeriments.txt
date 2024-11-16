@@ -1,4 +1,16 @@
+click==8.1.7
+colorama==0.4.6
+grpcio==1.66.0
+grpcio-tools==1.66.0
 inquirerpy==0.3.4
+markdown-it-py==3.0.0
+mdurl==0.1.2
 pfzy==0.3.4
-prompt_toolkit==3.0.48
+prompt_toolkit==3.0.47
+protobuf==5.27.3
+Pygments==2.18.0
+rich==13.7.1
+shellingham==1.5.4
+typer==0.12.3
+typing_extensions==4.12.2
 wcwidth==0.2.13
