@@ -3,6 +3,9 @@ import random
 import platform
 from os import system
 from InquirerPy import prompt
+from rich.console import Console
+
+console = Console()
 
 anguloRotacion = 36  
 longitudLinea = 0
@@ -29,11 +32,26 @@ reglas={
     'F': None
 }
 
+velocidades = {
+    'Rapidisimo 🏎️' :  0,
+    'Rapido 🚗'    :  10,
+    'Normalito 🚌'  :  6,
+    'Lento 🐎'    :  3,
+    'Lenteja modo turtle 🐢' :  1
+}
+
+def mostrar_titulo_ascii(titulo):
+    marco = "═" * (len(titulo) + 4)
+    console.print(f"╔{marco}╗", style="bold yellow")
+    console.print(f"║ {titulo} ║", style="bold green")
+    console.print(f"╚{marco}╝", style="bold yellow")
+    
 def obtener_cadena():
+    mostrar_titulo_ascii("⛓️‍💥 DESEA INGRESAR OTRA CADENA? ⛓️‍💥")
     respuesta = [
         {
             "type": "list",
-            "message": "¿Desea ingresar otra cadena?",
+            "message": "🚽",
             "choices": ["Si", "No"],
             "name": "opcion"
         },
@@ -57,28 +75,32 @@ def obtener_cadena():
     return cadena
 
 def obtener_iteraciones():
+    mostrar_titulo_ascii("🎡 INGRESE LAS ITERACIONES 🎡")
     respuesta = [
         {
             "type": "input",
             "name": "iteraciones",
-            "message": "Ingrese las iteraciones",
+            "message": "💀 =>",
         },
     ]
     respuesta = prompt(respuesta)
     return respuesta['iteraciones']
 
 def obtener_velocidad():
+    mostrar_titulo_ascii("🎰 SELECCIONE LA VELOCIDAD 🎰")
     respuesta = [
         {
-            "type": "input",
+            "type": "list",
             "name": "velocidad",
-            "message": "Ingrese la velocidad",
+            "message": "🗿",
+            "choices": list(velocidades.keys())
         },
     ]
     respuesta = prompt(respuesta)
-    return respuesta['velocidad']
+    return velocidades[respuesta['velocidad']]
 
 def obtener_colores():
+    mostrar_titulo_ascii("🎨 SELECCIONE LOS COLORES 🎨")
     lista_colores = [
         "white", "black", "red", "green", "blue", "cyan", "yellow", "magenta",
         "maroon", "lime", "navy", "teal", "purple", "olive", "gray", "silver",
