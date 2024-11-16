@@ -7,10 +7,10 @@ from rich.console import Console
 
 console = Console()
 
-anguloRotacion = 36  
-longitudLinea = 0
+angulo_rotacion = 36  
+longitud_linea = 0
 
-tamanioLinea={
+tamanio_linea={
     1: 70,
     2: 60,  
     3: 50,
@@ -125,42 +125,42 @@ def obtener_colores():
     respuestas = prompt(pregunta_colores)
     return respuestas['color1'], respuestas['color2']
 def menu():
-    global longitudLinea
-    limpiarConsola()
+    global longitud_linea
+    limpiar_consola()
     colores = obtener_colores()
-    limpiarConsola()
+    limpiar_consola()
     while True:
         velocidad = int(obtener_velocidad())
         if velocidad >= 0 and velocidad <= 10:
             break
         else:
-            limpiarConsola()
+            limpiar_consola()
             print('Valor invalido.')
-    limpiarConsola()
+    limpiar_consola()
     while True:
         iteraciones = int(obtener_iteraciones())
-        if iteraciones in tamanioLinea:
-            longitudLinea = tamanioLinea[iteraciones]
+        if iteraciones in tamanio_linea:
+            longitud_linea = tamanio_linea[iteraciones]
             break
         else:
-            limpiarConsola()
+            limpiar_consola()
             print('Valor invalido.')
-    limpiarConsola()
+    limpiar_consola()
     return colores, iteraciones, velocidad
 
-def aplicarReglas(cadena, iteraciones):
+def aplicar_reglas(cadena, iteraciones):
     i = 0
     while i<iteraciones:
-        nuevaCadena = ''
+        nueva_cadena = ''
         for x in cadena:
             if x in reglas:
                 if x == 'F':
                     pass
                 else: 
-                    nuevaCadena += reglas[x]
+                    nueva_cadena += reglas[x]
             else:
-                nuevaCadena += x
-        cadena = nuevaCadena
+                nueva_cadena += x
+        cadena = nueva_cadena
         i += 1
     #print(cadena)
     return cadena
@@ -169,17 +169,16 @@ def dibujar(cadena,colores):
     pila = []
     for char in cadena:
         if char == 'F':
-            turtle.forward(longitudLinea)#Dibuja una linea
+            turtle.forward(longitud_linea)#Dibuja una linea
         elif char == '+':
-            turtle.left(anguloRotacion) #Gira a la izquierda
+            turtle.left(angulo_rotacion) #Gira a la izquierda
         elif char == '-':
-            turtle.right(anguloRotacion) #Gira a la derecha
+            turtle.right(angulo_rotacion) #Gira a la derecha
         elif char == '[':
             if len(pila) % 2 == 0:
                 turtle.fillcolor(colores[0])  
             else:
                 turtle.fillcolor(colores[1])  
-            #turtle.color(random.choice(colores))
                 turtle.begin_fill()
             pila.append((turtle.position(), turtle.heading())) #Apilo
         elif char == ']':
@@ -191,13 +190,13 @@ def dibujar(cadena,colores):
             turtle.pendown()
     print('Dibujo terminado')
 
-def limpiarConsola():
+def limpiar_consola():
     if platform.system() == "Windows":
         system("cls")
     else:
         system("clear")
 
-def configPantalla():
+def config_pantalla():
     screen = turtle.Screen()
     screen.setup(width=1.0, height=1.0)  
     screen.title("TP2 Grupo 6")
@@ -207,22 +206,21 @@ def configPantalla():
 
 
     
-def configTurtle(velocidad):
+def config_turtle(velocidad):
     turtle.speed(velocidad)  
     turtle.pencolor('white')
     turtle.pensize(1)
     turtle.goto(0, 0)
 
 if __name__ == '__main__':
-    limpiarConsola()
-    cadenaInicial = obtener_cadena()
+    limpiar_consola()
+    cadena_inicial = obtener_cadena()
     colores, iteraciones, velocidad = menu()
-    screen = configPantalla()
-    configTurtle(velocidad)
-    #centrarDibujo(screen) 
+    screen = config_pantalla()
+    config_turtle(velocidad)
     print('Dibujando...')
     try:
-        cadena = aplicarReglas(cadenaInicial, iteraciones)
+        cadena = aplicar_reglas(cadena_inicial, iteraciones)
         dibujar(cadena,colores)
         turtle.done() 
         
